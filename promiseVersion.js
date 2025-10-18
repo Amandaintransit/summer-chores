@@ -2,16 +2,17 @@
 
 
 
-function fellAsleep() {
-  return Math.random() < 0.6;
+function stayedAwake() {
+  return Math.random() < 0.7;
 }
 
 
 function mowYard(name) {
   
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         setTimeout(() => {
             resolve(`${name} mowed the yard.`);
+            
   }, 2000);
 });
 }
@@ -20,12 +21,12 @@ function weedEat(name) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
 
-    if (fellAsleep()) {
-      resolve(`${name} fell asleep after mowing the yard.`);
-
+    if (stayedAwake()) {
+      resolve(`${name} finished using the weed eater.`);
+    
     } else {
-      reject(`${name} finished using the weed eater.`);
-      callback();
+      reject(`${name} fell asleep after mowing the yard.`);
+         
     }
   }, 1500);
 });
@@ -35,10 +36,10 @@ function trimHedges(name) {
     return new Promise((resolve, reject) => {
         setTimeout(() => {
 
-            if (fellAsleep()) {
-      resolve(`${name} fell asleep after weed eating the yard.`);
+            if (stayedAwake()) {
+      resolve(`${name} finished trimming the hedges.`);
     }       else {
-      reject(`${name} finished trimming the hedges.`);
+      reject(`${name} fell asleep after weed eating the yard.`);
       
     }
   }, 1000);
@@ -49,10 +50,11 @@ function collectWood(name) {
 
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-    if (fellAsleep()) {
-      resolve(`${name} fell asleep after trimming the hedges.`);
+    if (stayedAwake()) {
+     resolve(`${name} finished collecting wood.`);
+      
     } else {
-      reject(`${name} finished collecting wood.`);
+      reject(`${name} fell asleep after trimming the hedges.`);
       
     }
   }, 2500);
@@ -64,24 +66,26 @@ function waterGarden(name) {
     return new Promise((resolve, reject) => {
 
   setTimeout(() => {
-        if (fellAsleep()) {
-      resolve(`${name} fell asleep after collecting wood.`);
+        if (stayedAwake()) {
+      resolve(`${name} finished watering the garden.`);  
+      
     } else {
-      reject(`${name} finished watering the garden.`);
+      reject(`${name} fell asleep after collecting wood.`);
       
     }
   }, 500);
 });
 }
 
-function doSummerChores(name='') {
+function doSummerChores(name = ''){
    
-  mowYard().then(value => {console.log(value); return weedEat()})
-  .then(value => {console.log(value); return trimHedges()})
-  .then(value => {console.log(value); return collectWood()})
-  .then(value => {console.log(value); return waterGarden()})
+  mowYard(name).then(value => {console.log(value); return weedEat(name)})
+  .then(value => {console.log(value); return trimHedges(name)})
+  .then(value => {console.log(value); return collectWood(name)})
+  .then(value => {console.log(value); return waterGarden(name)})
   .then(value => {console.log(value); console.log(`${name} finished all their chores!`)})
-  .catch(error => console.error(error))}
-
-  doSummerChores("Amanda");
   
+    .catch(error => console.error(error));
+}
+doSummerChores("Amanda");
+ 
